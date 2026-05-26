@@ -26,7 +26,7 @@ This utility is useful for:
 ## Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/thegulshankumar/WordPress-Action-Scheduler-Cleaner/main/install.sh | sudo bash
+curl -fsSL raw.githubusercontent.com/thegulshankumar/WordPress-Action-Scheduler-Cleaner/main/install.sh | sudo bash
 ```
 
 ## Usage
