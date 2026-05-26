@@ -23,19 +23,6 @@ This utility is useful for:
 - Supports multiple WordPress sites
 - Cron compatible
 
-
-## Installation
-
-```bash
-git clone https://github.com/thegulshankumar/WordPress-Action-Scheduler-Cleaner.git
-
-cd WordPress-Action-Scheduler-Cleaner
-
-chmod +x install-wp-action-scheduler-cleaner.sh
-
-./install-wp-action-scheduler-cleaner.sh
-```
-
 ## Installation
 
 ```bash
@@ -48,11 +35,6 @@ curl -fsSL https://raw.githubusercontent.com/thegulshankumar/WordPress-Action-Sc
 wp-action-scheduler-cleaner
 ```
 
-## License
-
-GNU General Public License v3.0 (GPL-3.0)
-
----
 
 ![Linux](https://img.shields.io/badge/Linux-Compatible-brightgreen)
 ![WP-CLI](https://img.shields.io/badge/WP--CLI-Supported-blue)
