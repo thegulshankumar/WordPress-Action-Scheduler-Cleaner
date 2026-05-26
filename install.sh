@@ -1,18 +1,19 @@
 #!/bin/bash
 
-echo "=============================================="
-echo " Installing WordPress Action Scheduler Cleaner"
-echo "=============================================="
+echo "=================================================="
+echo " WordPress Action Scheduler Cleaner Installer"
+echo "=================================================="
 echo ""
 
 # --------------------------------------------------
-# Install WP-CLI if missing
+# Check WP-CLI
 # --------------------------------------------------
 
 if [ ! -f "/usr/local/bin/wp" ]; then
 
-    echo "WP-CLI not found"
+    echo "[1/3] WP-CLI not detected"
     echo "Installing WP-CLI..."
+    echo ""
 
     curl -fsSL -o wp-cli.phar \
     https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -21,39 +22,73 @@ if [ ! -f "/usr/local/bin/wp" ]; then
 
     sudo mv wp-cli.phar /usr/local/bin/wp
 
-    echo "WP-CLI installed successfully"
-    echo ""
+    if [ $? -eq 0 ]; then
+
+        echo "WP-CLI installed successfully"
+
+    else
+
+        echo "WP-CLI installation failed"
+        exit 1
+
+    fi
 
 else
 
-    echo "WP-CLI already installed"
-    echo ""
+    WP_VERSION=$(/usr/local/bin/wp --allow-root --version | awk '{print $2}')
+
+    echo "[1/3] WP-CLI detected"
+    echo "Version: $WP_VERSION"
 
 fi
 
+echo ""
+
 # --------------------------------------------------
-# Download latest cleaner utility
+# Install Cleanup Utility
 # --------------------------------------------------
 
-echo "Downloading cleanup utility..."
+echo "[2/3] Downloading cleanup utility..."
+echo ""
 
 curl -fsSL \
 https://raw.githubusercontent.com/thegulshankumar/WordPress-Action-Scheduler-Cleaner/main/wp-action-scheduler-cleaner.sh \
 -o /usr/local/bin/wp-action-scheduler-cleaner
 
+if [ $? -eq 0 ]; then
+
+    chmod +x /usr/local/bin/wp-action-scheduler-cleaner
+
+    echo "Cleanup utility installed successfully"
+
+else
+
+    echo "Failed to install cleanup utility"
+    exit 1
+
+fi
+
+echo ""
+
 # --------------------------------------------------
-# Make executable
+# Installation Completed
 # --------------------------------------------------
 
-chmod +x /usr/local/bin/wp-action-scheduler-cleaner
-
-echo ""
-echo "Installation completed successfully"
+echo "[3/3] Installation completed successfully"
 echo ""
 
-echo "Run using:"
+echo "Run manually using:"
 echo "wp-action-scheduler-cleaner"
+
 echo ""
-echo "Example:"
-echo "wp-action-scheduler-cleaner"
-echo "=============================================="
+echo "Recommended cron job:"
+echo "0 3 * * * /usr/local/bin/wp-action-scheduler-cleaner >> /var/log/wp-cleanup.log 2>&1"
+
+echo ""
+echo "Edit cron jobs using:"
+echo "crontab -e"
+
+echo ""
+echo "=================================================="
+echo " Installation Finished Successfully"
+echo "=================================================="
