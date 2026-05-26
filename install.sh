@@ -5,27 +5,25 @@
 # ==================================================
 
 # Colors
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-RED='\033[0;31m'
-WHITE='\033[1;37m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
+GREEN='\e[1;32m'
+BLUE='\e[1;34m'
+RED='\e[1;31m'
+WHITE='\e[1;37m'
+YELLOW='\e[1;33m'
+NC='\e[0m'
 
-echo -e "${BLUE}==================================================${NC}"
-echo -e "${WHITE} WordPress Action Scheduler Cleaner Installer${NC}"
-echo -e "${BLUE}==================================================${NC}"
-echo ""
+printf "${BLUE}==================================================${NC}\n"
+printf "${WHITE} WordPress Action Scheduler Cleaner Installer${NC}\n"
+printf "${BLUE}==================================================${NC}\n\n"
 
 # --------------------------------------------------
-# Check WP-CLI
+# STEP 1 - Check WP-CLI
 # --------------------------------------------------
 
 if [ ! -f "/usr/local/bin/wp" ]; then
 
-    echo -e "${YELLOW}[1/3] WP-CLI not detected${NC}"
-    echo -e "${WHITE}Installing WP-CLI...${NC}"
-    echo ""
+    printf "${YELLOW}[1/3] WP-CLI not detected${NC}\n"
+    printf "${WHITE}Installing WP-CLI...${NC}\n\n"
 
     curl -fsSL -o wp-cli.phar \
     https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -36,11 +34,11 @@ if [ ! -f "/usr/local/bin/wp" ]; then
 
     if [ $? -eq 0 ]; then
 
-        echo -e "${GREEN}WP-CLI installed successfully${NC}"
+        printf "${GREEN}WP-CLI installed successfully${NC}\n"
 
     else
 
-        echo -e "${RED}WP-CLI installation failed${NC}"
+        printf "${RED}WP-CLI installation failed${NC}\n"
         exit 1
 
     fi
@@ -49,19 +47,18 @@ else
 
     WP_VERSION=$(/usr/local/bin/wp --allow-root --version | awk '{print $2}')
 
-    echo -e "${GREEN}[1/3] WP-CLI detected${NC}"
-    echo -e "${WHITE}Version:${NC} ${BLUE}$WP_VERSION${NC}"
+    printf "${GREEN}[1/3] WP-CLI detected${NC}\n"
+    printf "${WHITE}Version:${NC} ${BLUE}%s${NC}\n" "$WP_VERSION"
 
 fi
 
-echo ""
+printf "\n"
 
 # --------------------------------------------------
-# Install Cleanup Utility
+# STEP 2 - Download Cleanup Utility
 # --------------------------------------------------
 
-echo -e "${YELLOW}[2/3] Downloading cleanup utility...${NC}"
-echo ""
+printf "${YELLOW}[2/3] Downloading cleanup utility...${NC}\n\n"
 
 curl -fsSL \
 https://raw.githubusercontent.com/thegulshankumar/WordPress-Action-Scheduler-Cleaner/main/wp-action-scheduler-cleaner.sh \
@@ -71,36 +68,32 @@ if [ $? -eq 0 ]; then
 
     chmod +x /usr/local/bin/wp-action-scheduler-cleaner
 
-    echo -e "${GREEN}Cleanup utility installed successfully${NC}"
+    printf "${GREEN}Cleanup utility installed successfully${NC}\n"
 
 else
 
-    echo -e "${RED}Failed to install cleanup utility${NC}"
+    printf "${RED}Failed to install cleanup utility${NC}\n"
     exit 1
 
 fi
 
-echo ""
+printf "\n"
 
 # --------------------------------------------------
-# Installation Completed
+# STEP 3 - Installation Completed
 # --------------------------------------------------
 
-echo -e "${GREEN}[3/3] Installation completed successfully${NC}"
-echo ""
+printf "${GREEN}[3/3] Installation completed successfully${NC}\n\n"
 
-echo -e "${WHITE}Run manually using:${NC}"
-echo -e "${BLUE}wp-action-scheduler-cleaner${NC}"
+printf "${WHITE}Run manually using:${NC}\n"
+printf "${BLUE}wp-action-scheduler-cleaner${NC}\n\n"
 
-echo ""
-echo -e "${WHITE}Recommended cron job:${NC}"
-echo -e "${BLUE}0 3 * * * /usr/local/bin/wp-action-scheduler-cleaner >> /var/log/wp-cleanup.log 2>&1${NC}"
+printf "${WHITE}Recommended cron job:${NC}\n"
+printf "${BLUE}0 3 * * * /usr/local/bin/wp-action-scheduler-cleaner >> /var/log/wp-cleanup.log 2>&1${NC}\n\n"
 
-echo ""
-echo -e "${WHITE}Edit cron jobs using:${NC}"
-echo -e "${BLUE}crontab -e${NC}"
+printf "${WHITE}Edit cron jobs using:${NC}\n"
+printf "${BLUE}crontab -e${NC}\n\n"
 
-echo ""
-echo -e "${BLUE}==================================================${NC}"
-echo -e "${GREEN} Installation Finished Successfully${NC}"
-echo -e "${BLUE}==================================================${NC}"
+printf "${BLUE}==================================================${NC}\n"
+printf "${GREEN} Installation Finished Successfully${NC}\n"
+printf "${BLUE}==================================================${NC}\n"
