@@ -36,12 +36,6 @@ wp-action-scheduler-cleaner
 ```
 
 
-![Linux](https://img.shields.io/badge/Linux-Compatible-brightgreen)
-![WP-CLI](https://img.shields.io/badge/WP--CLI-Supported-blue)
-![WooCommerce](https://img.shields.io/badge/WooCommerce-Compatible-purple)
-![License](https://img.shields.io/badge/License-GPLv3-yellow)
-
-
 ### Disclaimer
 
 WordPress® is a registered trademark of the WordPress Foundation. This project is not affiliated with, endorsed by, or sponsored by the WordPress Foundation or WooCommerce.
@@ -49,4 +43,10 @@ WordPress® is a registered trademark of the WordPress Foundation. This project 
 This utility is provided as-is without any warranty or guarantee of compatibility, performance, or fitness for a particular purpose. Always review scripts before execution and test in a staging environment before running on production servers.
 
 Users are responsible for verifying backups, cron configurations, server permissions, and database integrity before using this tool.
+
+
+![Linux](https://img.shields.io/badge/Linux-Compatible-brightgreen)
+![WP-CLI](https://img.shields.io/badge/WP--CLI-Supported-blue)
+![WooCommerce](https://img.shields.io/badge/WooCommerce-Compatible-purple)
+![License](https://img.shields.io/badge/License-GPLv3-yellow)
 
