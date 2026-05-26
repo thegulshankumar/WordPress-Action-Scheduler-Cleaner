@@ -35,6 +35,23 @@ curl -fsSL raw.githubusercontent.com/thegulshankumar/WordPress-Action-Scheduler-
 wp-action-scheduler-cleaner
 ```
 
+## Output
+
+```
+Site Owner : example_com
+WordPress  : /home/example_com/webapps/example_com
+
+Validating WordPress installation...
+Valid WordPress installation detected
+WordPress Version : 7.0
+
+Checking Action Scheduler availability...
+Action Scheduler detected
+
+Running Action Scheduler cleanup...
+Cleanup completed successfully
+```
+
 
 ### Disclaimer
 
