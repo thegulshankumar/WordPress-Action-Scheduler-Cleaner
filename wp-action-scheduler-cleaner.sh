@@ -13,90 +13,35 @@ echo "=================================================="
 echo ""
 
 # --------------------------------------------------
-# STEP 1 - Check WP-CLI
+# STEP 1 - Validate WP-CLI
 # --------------------------------------------------
-
-echo "[1/4] Checking WP-CLI installation..."
-echo ""
 
 if [ ! -f "$WPCLI" ]; then
 
     echo "WP-CLI not found"
-    echo "Installing WP-CLI..."
+    echo "Please run installer again"
+    echo ""
 
-    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar >/dev/null 2>&1
-
-    chmod +x wp-cli.phar
-
-    sudo mv wp-cli.phar "$WPCLI"
-
-    if [ $? -eq 0 ]; then
-        echo "WP-CLI installed successfully"
-    else
-        echo "WP-CLI installation failed"
-        exit 1
-    fi
-
-else
-
-    CURRENT_VERSION=$($WPCLI --allow-root --version | awk '{print $2}')
-
-    echo "WP-CLI detected"
-    echo "Current version: $CURRENT_VERSION"
+    exit 1
 
 fi
 
-echo ""
-
-# --------------------------------------------------
-# STEP 2 - Update WP-CLI
-# --------------------------------------------------
-
-echo "[2/4] Checking for WP-CLI updates..."
-echo ""
-
-UPDATE_OUTPUT=$($WPCLI --allow-root cli update --yes 2>&1)
-
-if echo "$UPDATE_OUTPUT" | grep -qi "success"; then
-
-    NEW_VERSION=$($WPCLI --allow-root --version | awk '{print $2}')
-
-    echo "WP-CLI updated successfully"
-    echo "Updated version: $NEW_VERSION"
-
-else
-
-    echo "WP-CLI already up to date"
-
-fi
-
-echo ""
-
-# --------------------------------------------------
-# STEP 3 - Scan WordPress Sites
-# --------------------------------------------------
-
-echo "[3/4] Scanning WordPress installations..."
+echo "[1/3] Scanning WordPress installations..."
 echo ""
 
 TOTAL_SITES=0
 CLEANED_SITES=0
 FAILED_SITES=0
 
-for USER_DIR in /home/*; do
+# --------------------------------------------------
+# STEP 2 - Scan WordPress Sites
+# --------------------------------------------------
 
-    # Skip invalid directories
-    [ ! -d "$USER_DIR" ] && continue
+find /home -type f -name "wp-config.php" -print0 | while IFS= read -r -d '' file; do
 
-    SITE_USER=$(basename "$USER_DIR")
+    WP_PATH=$(dirname "$file")
 
-    # Common hosting structure
-    WP_PATH="$USER_DIR/public_html"
-
-    # Skip if wp-config.php missing
-    if [ ! -f "$WP_PATH/wp-config.php" ]; then
-        continue
-    fi
+    SITE_USER=$(stat -c '%U' "$WP_PATH")
 
     TOTAL_SITES=$((TOTAL_SITES + 1))
 
@@ -112,7 +57,9 @@ for USER_DIR in /home/*; do
     if [ $? -ne 0 ]; then
 
         echo "Invalid WordPress installation"
+
         FAILED_SITES=$((FAILED_SITES + 1))
+
         echo ""
 
         continue
@@ -131,6 +78,7 @@ for USER_DIR in /home/*; do
     if [ $? -eq 0 ]; then
 
         echo "Cleanup completed successfully"
+
         CLEANED_SITES=$((CLEANED_SITES + 1))
 
     else
@@ -146,8 +94,12 @@ for USER_DIR in /home/*; do
 
 done
 
+# --------------------------------------------------
+# STEP 3 - Cleanup Summary
+# --------------------------------------------------
+
 echo "=================================================="
-echo "[4/4] Cleanup Summary"
+echo "[3/3] Cleanup Summary"
 echo "=================================================="
 echo ""
 
