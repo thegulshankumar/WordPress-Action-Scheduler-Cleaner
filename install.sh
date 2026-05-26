@@ -12,6 +12,8 @@ WHITE='\e[1;37m'
 YELLOW='\e[1;33m'
 NC='\e[0m'
 
+INSTALL_PATH="/usr/local/bin/wp-action-scheduler-cleaner"
+
 printf "${BLUE}==================================================${NC}\n"
 printf "${WHITE} WordPress Action Scheduler Cleaner Installer${NC}\n"
 printf "${BLUE}==================================================${NC}\n\n"
@@ -55,18 +57,27 @@ fi
 printf "\n"
 
 # --------------------------------------------------
-# STEP 2 - Download Cleanup Utility
+# STEP 2 - Install / Update Cleanup Utility
 # --------------------------------------------------
 
-printf "${YELLOW}[2/3] Downloading cleanup utility...${NC}\n\n"
+if [ -f "$INSTALL_PATH" ]; then
+
+    printf "${YELLOW}[2/3] Existing installation detected${NC}\n"
+    printf "${WHITE}Updating cleanup utility...${NC}\n\n"
+
+else
+
+    printf "${YELLOW}[2/3] Installing cleanup utility...${NC}\n\n"
+
+fi
 
 curl -fsSL \
 https://raw.githubusercontent.com/thegulshankumar/WordPress-Action-Scheduler-Cleaner/main/wp-action-scheduler-cleaner.sh \
--o /usr/local/bin/wp-action-scheduler-cleaner
+-o "$INSTALL_PATH"
 
 if [ $? -eq 0 ]; then
 
-    chmod +x /usr/local/bin/wp-action-scheduler-cleaner
+    chmod +x "$INSTALL_PATH"
 
     printf "${GREEN}Cleanup utility installed successfully${NC}\n"
 
