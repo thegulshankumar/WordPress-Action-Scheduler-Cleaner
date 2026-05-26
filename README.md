@@ -40,3 +40,5 @@ wp-action-scheduler-cleaner
 ![WP-CLI](https://img.shields.io/badge/WP--CLI-Supported-blue)
 ![WooCommerce](https://img.shields.io/badge/WooCommerce-Compatible-purple)
 ![License](https://img.shields.io/badge/License-GPLv3-yellow)
+
+> > WordPress® is a trademark of the WordPress Foundation. This project is not affiliated with them.
