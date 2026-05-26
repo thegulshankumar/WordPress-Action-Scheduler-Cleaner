@@ -36,16 +36,16 @@ chmod +x install-wp-action-scheduler-cleaner.sh
 ./install-wp-action-scheduler-cleaner.sh
 ```
 
+## Installation
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/thegulshankumar/WordPress-Action-Scheduler-Cleaner/main/install.sh | sudo bash
+```
+
 ## Usage
 
 ```bash
 wp-action-scheduler-cleaner
-```
-
-## Cron Example
-
-```bash
-0 3 * * * /usr/local/bin/wp-action-scheduler-cleaner >> /var/log/wp-cleanup.log 2>&1
 ```
 
 ## License
